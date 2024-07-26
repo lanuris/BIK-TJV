@@ -1,0 +1,130 @@
+#School gitlab pipeline FYI
+#stages:
+#  - compile
+#  - test
+#  - build
+#  - package
+#
+#
+#.setup-mvn: &setup-mvn
+#  - chmod a+x mvnw
+#
+#variables:
+#  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+#
+#cache:
+#  paths:
+#    - .m2/repository/
+#    - "**/target/"
+#
+#backend_compile:
+#  stage: compile
+#  image: ${CI_REGISTRY}/bi-ido/bi-ido-registry/maven:3.8.6-openjdk-18
+#  script:
+#    - cd backend/
+#    - *setup-mvn
+#    - ./mvnw clean compile
+#
+#backend_test:
+#  stage: test
+#  image: ${CI_REGISTRY}/bi-ido/bi-ido-registry/markhobson/maven-chrome:jdk-18 # this image as well uses maven 3.8.6
+#  script:
+#    - cd backend/
+#    - *setup-mvn
+#    - ./mvnw test
+#  artifacts:
+#    name: "Surefire test reports from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+#    expire_in: 1 day
+#    reports:
+#      junit:
+#        - "**/target/surefire-reports/TEST-*.xml"
+#
+#backend_build:
+#  stage: build
+#  image: ${CI_REGISTRY}/bi-ido/bi-ido-registry/maven:3.8.6-openjdk-18
+#  script:
+#    - cd backend/
+#    - *setup-mvn
+#    - ./mvnw package -DskipTests
+#  artifacts:
+#    name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+#    paths:
+#      - "**/target/*.jar"
+#
+#backend_container:
+#  stage: package
+#  image: $CI_REGISTRY/ict/images/alpine/ci:latest
+#  variables:
+#    BUILDAH_ISOLATION: chroot
+#    IMAGE_TAG: $CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}
+#  before_script:
+#    - cd backend/
+#    - apk add buildah fuse-overlayfs
+#    - buildah login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#    - buildah info
+#  script:
+#    - buildah build --tag $CI_REGISTRY_IMAGE/backend:latest -f Dockerfile
+#    - buildah push $CI_REGISTRY_IMAGE/backend
+#
+#backend_doc:
+#  stage: package
+#  image: ${CI_REGISTRY}/bi-ido/bi-ido-registry/maven:3.8.6-openjdk-18
+#  variables:
+#    MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+#  script:
+#    - cd backend/
+#    - ./mvnw javadoc:javadoc -DskipTests
+#  artifacts:
+#    name: "Javadoc documentation for $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+#    paths:
+#      - "**/target/site/apidocs/*"
+#
+#frontend_compile:
+#  stage: compile
+#  image: ${CI_REGISTRY}/bi-ido/bi-ido-registry/maven:3.8.6-openjdk-18
+#  script:
+#    - cd frontend/
+#    - *setup-mvn
+#    - ./mvnw clean compile
+#
+#frontend_test:
+#  stage: test
+#  image: ${CI_REGISTRY}/bi-ido/bi-ido-registry/markhobson/maven-chrome:jdk-18 # this image as well uses maven 3.8.6
+#  script:
+#    - cd frontend/
+#    - *setup-mvn
+#    - ./mvnw test
+#  artifacts:
+#    name: "Surefire test reports from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+#    expire_in: 1 day
+#    reports:
+#      junit:
+#        - "**/target/surefire-reports/TEST-*.xml"
+#
+#frontend_build:
+#  stage: build
+#  image: ${CI_REGISTRY}/bi-ido/bi-ido-registry/maven:3.8.6-openjdk-18
+#  script:
+#    - cd frontend/
+#    - *setup-mvn
+#    - ./mvnw package -DskipTests
+#  artifacts:
+#    name: "Maven artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+#    paths:
+#      - "**/target/*.jar"
+#
+#frontend_container:
+#  stage: package
+#  image: $CI_REGISTRY/ict/images/alpine/ci:latest
+#  variables:
+#    BUILDAH_ISOLATION: chroot
+#    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+#  before_script:
+#    - apk add buildah fuse-overlayfs
+#    - buildah login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#    - buildah info
+#  script:
+#    - cd frontend/
+#    - buildah build --tag $CI_REGISTRY_IMAGE/frontend:latest -f Dockerfile
+#    - buildah push $CI_REGISTRY_IMAGE/frontend
+#

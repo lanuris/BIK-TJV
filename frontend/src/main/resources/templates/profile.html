@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+    <title>Home</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="p-3 m-0 border-0 bd-example">
+
+<nav class="navbar navbar-expand-lg bg-light" th:replace="~{fragments/navBar}"></nav>
+
+<div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+
+        <h1 class="text-body-emphasis">Choose carefully what you want to do with your account!</h1>
+        <div class="d-inline-flex gap-2 mb-5">
+
+            <a href="/profile/edit">
+                <button class="btn btn-warning rounded-pill px-3" type="button">Edit Account</button>
+            </a>
+            <form th:action="@{/profile}" method="post" onsubmit="return showConfirmation()">
+                <button class="btn btn-danger rounded-pill px-3" type="submit">Delete Account</button>
+
+                <script>
+                    function showConfirmation() {
+                        // Use the built-in confirm function to show a confirmation dialog
+                        var isConfirmed = confirm("Are you sure you want to proceed?");
+
+                        // Check if the user clicked OK or Cancel
+                        if (isConfirmed) {
+                            alert("Action confirmed!"); // You can replace this with the actual action you want to perform
+                            return true;
+                        } else {
+                            alert("Action canceled."); // Optional: provide feedback if the user cancels
+                            return false;
+                        }
+                    }
+                </script>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis" th:text="''"></h1>
+</div>
+
+</body>
+</html>

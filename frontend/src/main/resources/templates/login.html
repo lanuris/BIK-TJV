@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="vh-100 d-flex justify-content-center align-items-center">
+
+    <div class="container">
+<!--        <h2>Create an Account</h2>-->
+        <div class="card bg-white">
+            <div class="row d-flex justify-content-center">
+                <form class="mb-3 mt-md-4" method="post" action="#" th:action="@{/login}"
+                      th:object="${engineerLoginDTO}">
+
+                    <h2 class="fw-bold mb-2 text-uppercase "><span style="color: green;">Civil Freelancers</span></h2>
+                    <p class=" mb-5">Please enter your email and password.</p>
+                    <div id="loginSubmitMessage" class = "alert alert-warning" th:if="${engineerLoginSubmit}" th:text="${engineerLoginSubmit}"></div>
+                    <div class="mb-3">
+                        <label for="did" class="form-label ">Email</label>
+                        <input id="did" class="form-control" name="username" type="text"
+                               placeholder="Enter an email" required="required" autofocus
+                               th:field="*{email}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label ">Password</label>
+                        <input id="password" class="form-control" name="password" type="password"
+                               placeholder="Enter a password" required="required" autofocus
+                               th:field="*{password}">
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-outline-dark" type="submit">Login</button>
+                    </div>
+                </form>
+                <div  class="mb-3 mt-md-4" >
+                    <form action="/registration">
+                        <p class="mb-0  text-center">Don't have an account? <button type="submit"
+                                                                                    class="btn btn-secondary">Sign
+                            Up</button></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
