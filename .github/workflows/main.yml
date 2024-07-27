@@ -119,7 +119,7 @@ jobs:
       - name: Upload Javadoc
         uses: actions/upload-artifact@v4
         with:
-          name: javadoc
+          name: backend-javadoc
           path: backend/target/site/apidocs/*
 
   frontend_compile:

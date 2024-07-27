@@ -116,7 +116,11 @@ In the `compose.yml` file, for the purpose of running with `docker compose`, the
 
 ## Documentation
 
-The latest JavaDoc documentation can be found [here]().
+The backend documentation can be generated and viewed locally. Follow these steps:
+
+1. Download the latest backend-javadoc artifact from the [Actions tab](https://github.com/lanuris/BIK-TJV/actions).
+2. Extract the artifact and open the `index.html` file inside the `docs/` directory.
+
 ## Backend Log Locations
 
 ### Console Appender (`STDOUT`):
