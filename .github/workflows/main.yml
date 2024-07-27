@@ -53,7 +53,7 @@ jobs:
       - name: Archive test reports
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
+          name: backend-test-reports
           path: backend/target/surefire-reports/
 
   backend_build:
@@ -79,7 +79,7 @@ jobs:
       - name: Upload Maven artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: maven-artifacts
+          name: backend-artifacts
           path: backend/target/*.jar
 
   backend_container:
@@ -95,25 +95,6 @@ jobs:
           cd backend &&
           docker build . --file Dockerfile --tag ghcr.io/lanuris/bik-tjv/backend:latest &&
           docker push ghcr.io/lanuris/bik-tjv/backend:latest
-
-
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#      - name: Set up Buildah
-#        run: sudo apt-get update && sudo apt-get install -y buildah
-#      - name: Log in to container registry
-#        env:
-#          CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
-#          CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
-#          CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
-#        run: echo ${{ secrets.GITHUB_TOKEN }} | buildah login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
-#      - name: Build and push container image
-#        env:
-#          CI_REGISTRY_IMAGE: ${{ secrets.CI_REGISTRY_IMAGE }}
-#        run: |
-#          cd backend
-#          buildah build --tag ${{ secrets.CI_REGISTRY_IMAGE }}/backend:latest -f Dockerfile .
-#          buildah push ${{ secrets.CI_REGISTRY_IMAGE }}/backend
 
   backend_doc:
     runs-on: ubuntu-latest
@@ -185,7 +166,7 @@ jobs:
       - name: Archive test reports
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
+          name: frontend-test-reports
           path: frontend/target/surefire-reports/
 
   frontend_build:
@@ -211,7 +192,7 @@ jobs:
       - name: Upload Maven artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: maven-artifacts
+          name: frontend-artifacts
           path: frontend/target/*.jar
 
   frontend_container:
@@ -227,20 +208,3 @@ jobs:
           cd frontend 
           docker build . --file Dockerfile --tag ghcr.io/lanuris/bik-tjv/frontend:latest 
           docker push ghcr.io/lanuris/bik-tjv/frontend:latest
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#      - name: Set up Buildah
-#        run: sudo apt-get update && sudo apt-get install -y buildah
-#      - name: Log in to container registry
-#        env:
-#          CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
-#          CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
-#          CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
-#        run: echo ${{ secrets.GITHUB_TOKEN }} | buildah login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
-#      - name: Build and push container image
-#        env:
-#          CI_REGISTRY_IMAGE: ${{ secrets.CI_REGISTRY_IMAGE }}
-#        run: |
-#          cd frontend
-#          buildah build --tag ${{ secrets.CI_REGISTRY_IMAGE }}/frontend:latest -f Dockerfile .
-#          buildah push ${{ secrets.CI_REGISTRY_IMAGE }}/frontend
