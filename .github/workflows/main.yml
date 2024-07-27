@@ -87,7 +87,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build the Docker image
-        run:
+        run: |
           cd backend
           docker build . --file Dockerfile --tag backend:latest
 
@@ -214,7 +214,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build the Docker image
-        run:
+        run: |
           cd frontend
           docker build . --file Dockerfile --tag frontend:latest
 
