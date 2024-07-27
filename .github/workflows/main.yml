@@ -217,7 +217,7 @@ jobs:
         run: |
           cd frontend 
           docker build . --file Dockerfile --tag frontend:latest 
-
+          docker push https://ghcr.io/lanuris/BIK-TJV/frontend
 #      - name: Checkout code
 #        uses: actions/checkout@v2
 #      - name: Set up Buildah
