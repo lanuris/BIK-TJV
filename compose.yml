@@ -19,7 +19,8 @@ services:
       - ./db/init-data.sql:/docker-entrypoint-initdb.d/2-init-data.sql
 
   backend:
-#    image:
+    image: ghcr.io/lanuris/bik-tjv/backend:latest
+#    for local
 #    build: backend/
     container_name: backend
     ports:
@@ -27,16 +28,17 @@ services:
 
     environment:
      DATA_SOURCE_URL: db:5432
+#     env. file can be used
 #    env_file:
 #      - path: backend.env
 #        required: false
     depends_on:
       db:
         condition: service_healthy
-#
-#
+
   frontend:
-#    image:
+    image: ghcr.io/lanuris/bik-tjv/frontend:latest
+#    for local
 #    build: frontend/
     container_name: frontend
     environment:
