@@ -13,16 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
       - name: Grant execute permission for Maven Wrapper
         run: chmod a+x backend/mvnw
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/backend/pom.xml') }}
@@ -34,16 +34,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
       - name: Grant execute permission for Maven Wrapper
         run: chmod a+x backend/mvnw
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/backend/pom.xml') }}
@@ -51,7 +51,7 @@ jobs:
       - name: Run tests
         run: cd backend && ./mvnw test
       - name: Archive test reports
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports
           path: backend/target/surefire-reports/
@@ -60,16 +60,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
       - name: Grant execute permission for Maven Wrapper
         run: chmod a+x backend/mvnw
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/backend/pom.xml') }}
@@ -77,7 +77,7 @@ jobs:
       - name: Package backend
         run: cd backend && ./mvnw package -DskipTests
       - name: Upload Maven artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: maven-artifacts
           path: backend/target/*.jar
@@ -114,16 +114,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
       - name: Grant execute permission for Maven Wrapper
         run: chmod a+x backend/mvnw
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/backend/pom.xml') }}
@@ -131,7 +131,7 @@ jobs:
       - name: Generate Javadoc
         run: cd backend && ./mvnw javadoc:javadoc -DskipTests
       - name: Upload Javadoc
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: javadoc
           path: backend/target/site/apidocs/*
@@ -140,16 +140,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
       - name: Grant execute permission for Maven Wrapper
         run: chmod a+x frontend/mvnw
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/frontend/pom.xml') }}
@@ -161,16 +161,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
       - name: Grant execute permission for Maven Wrapper
         run: chmod a+x frontend/mvnw
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/frontend/pom.xml') }}
@@ -178,7 +178,7 @@ jobs:
       - name: Run tests
         run: cd frontend && ./mvnw test
       - name: Archive test reports
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports
           path: frontend/target/surefire-reports/
@@ -187,16 +187,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
       - name: Grant execute permission for Maven Wrapper
         run: chmod a+x frontend/mvnw
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/frontend/pom.xml') }}
@@ -204,7 +204,7 @@ jobs:
       - name: Package frontend
         run: cd frontend && ./mvnw package -DskipTests
       - name: Upload Maven artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: maven-artifacts
           path: frontend/target/*.jar
@@ -215,8 +215,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build the Docker image
         run: |
-          cd frontend &&
-          docker build . --file Dockerfile --tag frontend:latest
+          cd frontend 
+          docker build . --file Dockerfile --tag frontend:latest 
 
 #      - name: Checkout code
 #        uses: actions/checkout@v2
