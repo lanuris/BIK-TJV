@@ -89,7 +89,8 @@ jobs:
       - name: Build the Docker image
         run:
           cd backend &&
-          docker build . --file Dockerfile --tag backend:latest
+          docker build . --file Dockerfile --tag backend:latest &&
+          docker push https://ghcr.io/lanuris/bik-tjv/frontend:latest
 
 
 #      - name: Checkout code
@@ -217,7 +218,7 @@ jobs:
         run: |
           cd frontend 
           docker build . --file Dockerfile --tag frontend:latest 
-          docker push https://ghcr.io/lanuris/bik-tjv/frontend
+          docker push https://ghcr.io/lanuris/bik-tjv/frontend:latest
 #      - name: Checkout code
 #        uses: actions/checkout@v2
 #      - name: Set up Buildah
